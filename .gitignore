@@ -1,5 +1,6 @@
 .env
 !.env.example
+notes.md
 nginx/logs
 db/db_storage
 
