@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Auth\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\UpdatePasswordRequest;
 use App\Http\Requests\Auth\UpdateUserRequest;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -28,7 +28,7 @@ class UserController extends Controller
      * @param  \App\Http\Requests\Api\UpdateUserRequest  $request // Usamos el Form Request para validación
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(UserRequest $request): JsonResponse
+    public function update(UpdateUserRequest $request): JsonResponse
     {
       $user = $request->user();
       $user->fill($request->validated());
