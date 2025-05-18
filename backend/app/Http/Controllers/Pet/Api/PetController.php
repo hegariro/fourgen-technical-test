@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Pet\StorePetRequest;
 use App\Http\Requests\Pet\UpdatePetRequest;
 use App\Models\Pet;
+use App\Repositories\PetRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,6 +14,13 @@ use Illuminate\Auth\Access\AuthorizationException;
 
 class PetController extends Controller
 {
+  protected PetRepositoryInterface $petRepository;
+
+  public function __construct(PetRepositoryInterface $petRepository)
+  {
+    $this->petRepository = $petRepository;
+  }
+
   /**
    * Muestra un listado de las mascotas para el usuario autenticado.
    *
@@ -22,7 +30,7 @@ class PetController extends Controller
   public function index(Request $request): JsonResponse
   {
     $user = $request->user();
-    $pets = $user->pets()->get();
+    $pets = $this->petRepository->getByUser($user->id);
 
     return response()->json($pets);
   }
@@ -47,10 +55,11 @@ class PetController extends Controller
    *
    * @return \Illuminate\Http\JsonResponse
    */
-  public function allPets(): JsonResponse
+  public function allPets(Request $request): JsonResponse
   {
-    //$pets = Pet::all();
-    $pets = Pet::paginate(5);
+    $limit = (int) $request->get('limit', 20);
+    $page = (int) $request->get('page', 1);
+    $pets = $this->petRepository->getAllPaginated($limit, $page);
 
     return response()->json($pets);
   }
@@ -64,7 +73,7 @@ class PetController extends Controller
   public function store(StorePetRequest $request): JsonResponse
   {
     $this->authorize('create', Pet::class);
-    $pet = Pet::create($request->validated());
+    $pet = $this->petRepository->create($request->validated());
 
     return response()->json([
       'message' => 'Mascota creada exitosamente.',
@@ -82,7 +91,8 @@ class PetController extends Controller
   public function update(UpdatePetRequest $request, Pet $pet): JsonResponse
   {
     $this->authorize('update', $pet);
-    $pet->update($request->validated());
+    $updated = $this->petRepository->update($pet, $request->validated());
+    $pet->refresh();
 
     return response()->json([
       'message' => 'Mascota actualizada exitosamente.',
@@ -99,7 +109,7 @@ class PetController extends Controller
   public function destroy(Pet $pet): JsonResponse
   {
     $this->authorize('delete', $pet);
-    $pet->delete();
+    $deleted = $this->petRepository->delete($pet);
 
     return response()->json(['message' => 'Mascota eliminada exitosamente.']);
   }

@@ -102,12 +102,12 @@ class PetTest extends TestCase
   public function test_can_list_all_pets_on_specific_page(): void
   {
     $user = User::factory()->create();
-    $pets = Pet::factory()->count(20)->for($user)->create();
-    $this->assertDatabaseCount('pets', 20);
+    $pets = Pet::factory()->count(30)->for($user)->create();
+    $this->assertDatabaseCount('pets', 30);
 
     Sanctum::actingAs($user, ['api']);
 
-    $response = $this->getJson('/api/pets/all?page=2');
+    $response = $this->getJson('/api/pets/all?page=2&limit=5');
     $response->assertStatus(200);
 
     $response->assertJsonStructure([
@@ -121,7 +121,7 @@ class PetTest extends TestCase
       'path', 'per_page', 'prev_page_url', 'to', 'total',
     ]);
     $response->assertJsonCount(5, 'data');
-    $response->assertJsonPath('total', 20);
+    $response->assertJsonPath('total', 30);
   }
 
   /**

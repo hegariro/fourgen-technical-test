@@ -3,22 +3,27 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Repositories\EloquentPetRepository;
+use App\Repositories\PetRepositoryInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
-    public function register(): void
-    {
-        //
-    }
+  /**
+   * Register any application services.
+   */
+  public function register(): void
+  {
+    $this->app->bind(
+      PetRepositoryInterface::class,
+      EloquentPetRepository::class
+    );
+  }
 
-    /**
-     * Bootstrap any application services.
-     */
-    public function boot(): void
-    {
-        //
-    }
+  /**
+   * Bootstrap any application services.
+   */
+  public function boot(): void
+  {
+    //
+  }
 }

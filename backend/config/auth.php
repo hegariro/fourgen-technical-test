@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'sanctum' => [
+            'driver' => 'sanctum',
+            'provider' => 'users', // O el nombre de tu provider de usuarios API
+        ],
     ],
 
     /*
@@ -112,4 +116,8 @@ return [
 
     'password_timeout' => env('AUTH_PASSWORD_TIMEOUT', 10800),
 
+    'api' => [
+        'driver' => 'sanctum',
+        'provider' => 'users',
+    ],
 ];
