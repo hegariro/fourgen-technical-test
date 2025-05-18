@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\Api\LoginController;
 use App\Http\Controllers\Auth\Api\RegisterController;
 use App\Http\Controllers\Auth\Api\UserController;
+use App\Http\Controllers\Pet\Api\CatApiController;
 use App\Http\Controllers\Pet\Api\PetController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -10,6 +11,10 @@ use Illuminate\Support\Facades\Route;
 // Rutas públicas para registro y login API
 Route::post('/register', [RegisterController::class, 'register']);
 Route::post('/login', [LoginController::class, 'login']);
+
+// The Cat API Routes
+Route::get('/cats/breeds', [CatApiController::class, 'listCatBreeds']);
+Route::get('/cats/random', [CatApiController::class, 'getRandomCat']);
 
 // Rutas protegidas por Sanctum (requieren un token válido)
 Route::middleware('auth:sanctum')->group(function () {
