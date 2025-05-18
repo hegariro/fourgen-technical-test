@@ -12,6 +12,7 @@ services:
     volumes:
       - ./backend:/var/www/html
     expose:
+      - 8000
       - 9000
       - 9003
     env_file:
