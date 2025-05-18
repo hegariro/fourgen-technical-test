@@ -1,7 +1,6 @@
 FROM php:8.4-fpm
 
 RUN pecl install xdebug
-
 # Copia tu configuración personalizada de Xdebug
 COPY ./xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
