@@ -28,7 +28,7 @@ class CatApiController extends Controller
   public function listCatBreeds(Request $request): JsonResponse
   {
     $page = $request->get('page', 1);
-    $limit = $request->get('limit', 10);
+    $limit = $request->get('limit', 5);
     $page = max(1, (int) $page);
     $limit = max(1, (int) $limit);
     $apiPage = $page - 1;
