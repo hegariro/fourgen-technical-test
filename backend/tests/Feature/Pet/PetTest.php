@@ -78,16 +78,50 @@ class PetTest extends TestCase
 
     $response = $this->getJson('/api/pets/all');
     $response->assertStatus(200);
-    $response->assertJsonCount(5);
 
     $response->assertJsonStructure([
-      '*' => [
-        'id', 'name', 'species', 'breed', 'age', 'user_id', 'created_at', 'updated_at',
+      'current_page',
+      'data' => [
+        '*' => [
+          'id', 'name', 'species', 'breed', 'age', 'user_id', 'created_at', 'updated_at',
+        ],
       ],
+      'first_page_url', 'from', 'last_page', 'last_page_url', 'links', 'next_page_url',
+      'path', 'per_page', 'prev_page_url', 'to', 'total',
     ]);
 
     $response->assertJsonFragment(['user_id' => $user1->id]);
     $response->assertJsonFragment(['user_id' => $user2->id]);
+  }
+
+  /**
+   * Test que cualquier usuario puede listar todas las mascotas en una página específica.
+   *
+   * @return void
+   */
+  public function test_can_list_all_pets_on_specific_page(): void
+  {
+    $user = User::factory()->create();
+    $pets = Pet::factory()->count(20)->for($user)->create();
+    $this->assertDatabaseCount('pets', 20);
+
+    Sanctum::actingAs($user, ['api']);
+
+    $response = $this->getJson('/api/pets/all?page=2');
+    $response->assertStatus(200);
+
+    $response->assertJsonStructure([
+      'current_page',
+      'data' => [
+        '*' => [
+          'id', 'name', 'species', 'breed', 'age', 'user_id', 'created_at', 'updated_at',
+        ],
+      ],
+      'first_page_url', 'from', 'last_page', 'last_page_url', 'links', 'next_page_url',
+      'path', 'per_page', 'prev_page_url', 'to', 'total',
+    ]);
+    $response->assertJsonCount(5, 'data');
+    $response->assertJsonPath('total', 20);
   }
 
   /**

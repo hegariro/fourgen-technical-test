@@ -49,7 +49,8 @@ class PetController extends Controller
    */
   public function allPets(): JsonResponse
   {
-    $pets = Pet::all();
+    //$pets = Pet::all();
+    $pets = Pet::paginate(5);
 
     return response()->json($pets);
   }

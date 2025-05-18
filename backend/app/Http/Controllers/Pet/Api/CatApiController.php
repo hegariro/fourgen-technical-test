@@ -25,9 +25,15 @@ class CatApiController extends Controller
    *
    * @return \Illuminate\Http\JsonResponse
    */
-  public function listCatBreeds(): JsonResponse
+  public function listCatBreeds(Request $request): JsonResponse
   {
-    $breeds = $this->catApiService->getBreeds();
+    $page = $request->get('page', 1);
+    $limit = $request->get('limit', 10);
+    $page = max(1, (int) $page);
+    $limit = max(1, (int) $limit);
+    $apiPage = $page - 1;
+
+    $breeds = $this->catApiService->getBreeds($limit, $apiPage);
 
     if ($breeds === null) {
       return response()->json(
