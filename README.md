@@ -236,7 +236,7 @@ docker exec -it backend php artisan test
 - Se implementaron servicios para interactuar con APIs externas
 - Las respuestas JSON siguen una estructura consistente
 - Documentación del API usando OpenAPI/Scribe
-- Tests de características implementadas para ver el informe de covertura puede abrir el archivo `/public/coverage/index.html`
+- Tests de características implementadas para ver el informe de covertura ingresa al coverage [https://fourgen.dev/coverage](https://fourgen.dev/coverage/)
 
 ## Mejoras Potenciales
 
