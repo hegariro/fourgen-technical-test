@@ -1,0 +1,337 @@
+name: 'Gestión de Usuario'
+description: |-
+
+  Endpoints para gestionar las operaciones relacionadas con el perfil del usuario autenticado.
+  Este controlador proporciona endpoints para ver los detalles del usuario (show), 
+  actualizar su información (update), cambiar su contraseña (updatePassword) y eliminar su cuenta (destroy). 
+  Todos los métodos en este controlador están diseñados para operar sobre el usuario que realiza la solicitud.
+endpoints:
+  -
+    httpMethods:
+      - GET
+    uri: api/user
+    metadata:
+      groupName: 'Gestión de Usuario'
+      groupDescription: |-
+
+        Endpoints para gestionar las operaciones relacionadas con el perfil del usuario autenticado.
+        Este controlador proporciona endpoints para ver los detalles del usuario (show), 
+        actualizar su información (update), cambiar su contraseña (updatePassword) y eliminar su cuenta (destroy). 
+        Todos los métodos en este controlador están diseñados para operar sobre el usuario que realiza la solicitud.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Muestra la información del usuario autenticado.'
+      description: 'Retorna los datos del perfil del usuario que está actualmente autenticado.'
+      authenticated: true
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "id": 1,
+            "name": "Usuario Autenticado",
+            "email": "autenticado@example.com",
+            "created_at": "2023-10-27T10:00:00.000000Z",
+            "updated_at": "2023-10-27T10:00:00.000000Z"
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 401
+        content: |-
+          {
+           "message": "Unauthenticated."
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - PUT
+    uri: api/user
+    metadata:
+      groupName: 'Gestión de Usuario'
+      groupDescription: |-
+
+        Endpoints para gestionar las operaciones relacionadas con el perfil del usuario autenticado.
+        Este controlador proporciona endpoints para ver los detalles del usuario (show), 
+        actualizar su información (update), cambiar su contraseña (updatePassword) y eliminar su cuenta (destroy). 
+        Todos los métodos en este controlador están diseñados para operar sobre el usuario que realiza la solicitud.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Actualiza la información del usuario autenticado.'
+      description: |-
+        Permite al usuario autenticado actualizar su nombre, correo electrónico o fecha de nacimiento.
+        Todos los campos son opcionales; solo se actualizarán los que se envíen.
+      authenticated: true
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      name:
+        name: name
+        description: 'optional El nuevo nombre del usuario.'
+        required: false
+        example: 'Juan Sebastián'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      email:
+        name: email
+        description: 'optional El nuevo correo electrónico del usuario. Debe ser único (excepto el suyo actual).'
+        required: false
+        example: juan.sebastian@example.com
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      birthdate:
+        name: birthdate
+        description: 'optional La nueva fecha de nacimiento (YYYY-MM-DD). El usuario debe tener al menos 12 años.'
+        required: false
+        example: '2005-07-20'
+        type: date
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+    cleanBodyParameters:
+      name: 'Juan Sebastián'
+      email: juan.sebastian@example.com
+      birthdate: '2005-07-20'
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+          "message": "Información de usuario actualizada exitosamente.",
+          "user": {
+          "id": 1,
+          "name": "Juan Sebastián",
+          "email": "juan.sebastian@example.com",
+          "created_at": "2023-10-27T10:00:00.000000Z", // Assuming creation date doesn't change
+          "updated_at": "2023-10-27T10:30:00.000000Z" // Updated timestamp
+          }
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 401
+        content: |-
+          {
+          "message": "Unauthenticated."
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 422
+        content: |-
+          {
+          "message": "Los datos proporcionados no son válidos.",
+          "errors": {
+          "email": [
+          "El correo electrónico ya está registrado por otro usuario."
+          ],
+          "birthdate": [
+          "Debes tener al menos 12 años."
+          ]
+          }
+          }
+        headers: []
+        description: 'Errores de Validación'
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - DELETE
+    uri: api/user
+    metadata:
+      groupName: 'Gestión de Usuario'
+      groupDescription: |-
+
+        Endpoints para gestionar las operaciones relacionadas con el perfil del usuario autenticado.
+        Este controlador proporciona endpoints para ver los detalles del usuario (show), 
+        actualizar su información (update), cambiar su contraseña (updatePassword) y eliminar su cuenta (destroy). 
+        Todos los métodos en este controlador están diseñados para operar sobre el usuario que realiza la solicitud.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Elimina el registro del usuario autenticado.'
+      description: |-
+        Elimina la cuenta del usuario que está actualmente autenticado.
+        Esta acción es irreversible.
+      authenticated: true
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+          "message": "Usuario eliminado exitosamente."
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 401
+        content: |-
+          {
+          "message": "Unauthenticated."
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - PUT
+    uri: api/user/password
+    metadata:
+      groupName: 'Gestión de Usuario'
+      groupDescription: |-
+
+        Endpoints para gestionar las operaciones relacionadas con el perfil del usuario autenticado.
+        Este controlador proporciona endpoints para ver los detalles del usuario (show), 
+        actualizar su información (update), cambiar su contraseña (updatePassword) y eliminar su cuenta (destroy). 
+        Todos los métodos en este controlador están diseñados para operar sobre el usuario que realiza la solicitud.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Actualiza la contraseña del usuario autenticado.'
+      description: |-
+        Permite al usuario autenticado cambiar su contraseña.
+        Se requiere la contraseña actual para realizar el cambio.
+      authenticated: true
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      current_password:
+        name: current_password
+        description: 'La contraseña actual del usuario.'
+        required: true
+        example: oldP@ssw0rd
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      password:
+        name: password
+        description: 'La nueva contraseña (mínimo 8 caracteres por defecto).'
+        required: true
+        example: n3wS3cur3P@ss
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      password_confirmation:
+        name: password_confirmation
+        description: "Confirmación de la nueva contraseña. Debe coincidir con 'password'."
+        required: true
+        example: n3wS3cur3P@ss
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+    cleanBodyParameters:
+      current_password: oldP@ssw0rd
+      password: n3wS3cur3P@ss
+      password_confirmation: n3wS3cur3P@ss
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+          "message": "Contraseña actualizada exitosamente."
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 401
+        content: |-
+          {
+          "message": "Unauthenticated."
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 422
+        content: |-
+          {
+          "message": "Los datos proporcionados no son válidos.",
+          "errors": {
+          "current_password": [
+          "La contraseña actual proporcionada es incorrecta."
+          ],
+          "password": [
+          "La confirmación de la nueva contraseña no coincide."
+          ]
+          }
+          }
+        headers: []
+        description: 'Errores de Validación'
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
