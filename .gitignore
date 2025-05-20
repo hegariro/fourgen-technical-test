@@ -30,3 +30,5 @@ backend/.idea
 backend/.nova
 backend/.vscode
 backend/.zed
+
+backend/database/migrations/*_create_personal_access_tokens_table.php
