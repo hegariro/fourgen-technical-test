@@ -5,7 +5,240 @@
 @source '../**/*.blade.php';
 @source '../**/*.js';
 
+/* Importación de fuentes Google */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Paleta de colores principal */
+  --color-primary: #FF6B6B;       /* Coral vibrante para elementos principales */
+  --color-secondary: #4ECDC4;     /* Verde-azulado para acentos secundarios */
+  --color-tertiary: #FFD166;      /* Amarillo suave para destacados */
+  --color-dark: #2A363B;          /* Azul muy oscuro para textos */
+  --color-light: #F7FFF7;         /* Blanco con toque verde para fondos */
+  --color-warning: #FF9F1C;       /* Naranja para avisos */
+  --color-error: #FF4858;         /* Rojo para errores */
+  
+  /* Fuentes */
+  --font-primary: 'Quicksand', ui-sans-serif, system-ui, sans-serif;
+  
+  /* Bordes redondeados */
+  --border-radius-sm: 0.5rem;
+  --border-radius-md: 1rem;
+  --border-radius-lg: 1.5rem;
+  
+  /* Sombras */
+  --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 6px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-sans: var(--font-primary);
+}
+
+/* Estilos generales */
+body {
+  font-family: var(--font-primary);
+  background-color: var(--color-light);
+  color: var(--color-dark);
+}
+
+/* Personalización de la navegación */
+nav {
+  background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+  box-shadow: var(--shadow-sm);
+  z-index: 10; /* Asegura que la nav esté por encima del fondo */
+  position: relative; /* Necesario para que z-index funcione */
+}
+
+nav a {
+  color: white !important;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+nav a:hover {
+  transform: translateY(-2px);
+  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Personalización de tarjetas */
+.card {
+  border: none;
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  background-color: white;
+  position: relative; /* Asegura que la card esté por encima del fondo */
+  z-index: 5; /* Un z-index menor que la nav pero mayor que el fondo */
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+.card-header {
+  background-color: var(--color-primary);
+  color: white;
+  font-weight: bold;
+  border-bottom: none;
+  padding: 1rem 1.5rem;
+  font-size: 1.25rem;
+}
+
+.card-body {
+  padding: 2rem;
+}
+
+/* Botones personalizados */
+.btn-primary {
+  background-color: var(--color-primary);
+  border: none;
+  border-radius: var(--border-radius-sm);
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-sm);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #ff5252;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Inputs con estilo */
+.form-control {
+  border-radius: var(--border-radius-sm);
+  border: 2px solid #e2e8f0;
+  padding: 0.75rem 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: var(--color-secondary);
+  box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.2);
+  outline: none;
+}
+
+.form-control.is-invalid {
+  border-color: var(--color-error);
+}
+
+/* Invalid feedback para errores de validación */
+.invalid-feedback {
+  color: var(--color-error);
+  font-weight: 500;
+  margin-top: 0.5rem;
+}
+
+/* Iconos y elementos decorativos para mascotas */
+.pet-icon::before {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+
+.pet-icon.dog::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='%23FFFFFF' d='M496,96h-64l-7.16-14.31A32,32,0,0,0,396.58,64H342.1a32,32,0,0,0-28,16.3L306.87,96H176L169.56,82.66A32,32,0,0,0,142.71,64H80A32,32,0,0,0,48,96v22.72L7.27,165.55a32,32,0,0,0-4.63,36.17L64,320l16,32,23.16-46.31L80,272l24-48,8-16,35.29,70.59a32,32,0,0,0,28.73,17.41h45.88a32,32,0,0,0,28.73-17.41l19.26-38.53,28,42a32.06,32.06,0,0,0,26.56,14.1h48a32,32,0,0,0,26.56-14.1l30.06-45.09L384,272l-24-48-8-16L391.7,275.19l17-13,14.82,29.64L476.69,299A32,32,0,0,0,512,268.8V128A32,32,0,0,0,496,96Z'%3E%3C/path%3E%3C/svg%3E");
+}
+
+.pet-icon.cat::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='%23FFFFFF' d='M448,96h-64l-64-64v64H128V32L64,96H16A16,16,0,0,0,0,112v32a16,16,0,0,0,16,16H32v80a160,160,0,0,0,320,0V160h16a16,16,0,0,0,16-16V112A16,16,0,0,0,448,96ZM192,256a32,32,0,1,1,32-32A32,32,0,0,1,192,256Zm128,0a32,32,0,1,1,32-32A32,32,0,0,1,320,256Z'%3E%3C/path%3E%3C/svg%3E");
+}
+
+.pet-icon.fish::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 576 512'%3E%3Cpath fill='%23FFFFFF' d='M327.1,96c-89.97,0-168.54,54.77-212.27,101.63L27.5,131.58c-12.13-9.18-30.24,0.6-27.14,14.66L24.54,256,0.35,365.77c-3.1,14.06,15.01,23.83,27.14,14.66l87.33-66.05C158.55,361.23,237.13,416,327.1,416c141.36,0,255.9-93.82,255.9-160S468.46,96,327.1,96z M64,256c0-17.67,14.33-32,32-32s32,14.33,32,32c0,17.67-14.33,32-32,32S64,273.67,64,256z M327.1,360c-80.01,0-152.63-76.54-152.63-104s72.62-104,152.63-104c75.96,0,152.63,82.09,152.63,104S403.06,360,327.1,360z M440,288c-13.25,0-24-10.75-24-24c0-13.26,10.75-24,24-24s24,10.74,24,24C464,277.25,453.25,288,440,288z'%3E%3C/path%3E%3C/svg%3E");
+}
+
+/* Textos coloreados */
+.text-primary {
+  color: var(--color-primary);
+}
+
+.text-secondary {
+  color: var(--color-secondary);
+}
+
+/* Animaciones */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.float-animation {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Elementos decorativos */
+/* Modificado para que el patrón cubra todo el body y se fije */
+.paw-print-bg {
+  position: fixed; /* Cambiado de relative a fixed */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='%234ECDC4' opacity='0.05' d='M256,224c-79.41,0-192,122.76-192,200.25,0,34.9,26.81,55.75,71.74,55.75,48.84,0,81.09-25.08,120.26-25.08,39.51,0,71.85,25.08,120.26,25.08,44.93,0,71.74-20.85,71.74-55.75C448,346.76,335.41,224,256,224ZM108.72,211.11a29.32,29.32,0,1,0-29.28-29.28A29.33,29.33,0,0,0,108.72,211.11Zm294.25,0A29.32,29.32,0,1,0,374,181.83,29.33,29.33,0,0,0,403,211.11ZM108.72,130a29.32,29.32,0,1,0,29.27-29.26A29.31,29.31,0,0,0,108.72,130Zm294.25,0A29.32,29.32,0,1,0,374,101.35,29.32,29.32,0,0,0,403,130.61ZM217.65,70.23a29.31,29.31,0,1,0,29.27-29.23A29.35,29.35,0,0,0,217.65,70.23Z'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: repeat;
+  z-index: -1; /* Asegura que esté detrás de todo */
+  opacity: 0.05;
+  pointer-events: none; /* Asegura que no interfiera con interacciones */
+}
+
+/* Nueva clase para una sombra sutil en el texto, especialmente útil en la nav */
+.text-shadow-sm {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Adaptaciones responsive */
+@media (max-width: 768px) {
+  .card-body {
+    padding: 1.5rem;
+  }
+  
+  .btn-primary {
+    width: 100%;
+  }
+}
+
+/* Estilo para el footer */
+footer {
+  background-color: var(--color-dark);
+  color: white;
+  padding: 1.5rem 0;
+  box-shadow: var(--shadow-sm);
+  z-index: 10; /* Asegura que el footer esté por encima del fondo */
+  position: relative; /* Necesario para que z-index funcione */
+}
+
+footer a {
+  color: var(--color-tertiary);
+  transition: all 0.3s ease;
+}
+
+footer a:hover {
+  color: var(--color-secondary);
+  text-decoration: underline;
+}
+
+/* Iconos en el footer */
+footer .pet-icon::before {
+  /* Ajuste para que los iconos se vean mejor sobre fondo oscuro */
+  filter: drop-shadow(0 0 2px rgba(0,0,0,0.5));
+}
+
+/* Separador de secciones del footer */
+.footer-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.2), transparent);
+  margin: 1rem 0;
 }
