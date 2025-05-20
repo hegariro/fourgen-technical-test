@@ -12,7 +12,7 @@ docker exec -it backend php artisan vendor:publish --tag=scribe-config
 
 docker exec -it backend php artisan key:generate
 docker exec -it backend php artisan migrate
-docker exec -it backend php artisan db:seed 
+docker exec -it backend php artisan db:seed
 docker exec -it backend php artisan test
 docker exec -it backend php artisan scribe:generate
 
