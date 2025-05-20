@@ -7,17 +7,18 @@ docker exec -it backend composer require laravel/sanctum
 docker exec -it backend php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
 docker exec -it backend composer require blade-ui-kit/blade-icons
 docker exec -it backend composer require guzzlehttp/guzzle
-docker exec -it backend composer require knuckleswtf/scribe
+docker exec -it backend composer require knuckleswtf/scribe --dev --with-all-dependencies
 docker exec -it backend php artisan vendor:publish --tag=scribe-config
 
 docker exec -it backend php artisan key:generate
-docker exec -it backend php artisan migrate
+docker exec -it backend php artisan migrate:fresh --seed
 docker exec -it backend php artisan db:seed
-docker exec -it backend php artisan test
-docker exec -it backend php artisan scribe:generate
 
 docker exec -it backend npm install
 docker exec -it backend npm run build
+
+docker exec -it backend php artisan test
+docker exec -it backend php artisan scribe:generate
 
 docker exec -it backend composer dump-autoload
 docker exec -it backend php artisan optimize:clear

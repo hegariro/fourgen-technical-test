@@ -17,6 +17,7 @@ fi
 # Pero podemos agregar permisos adicionales si es necesario
 
 mysql -u root -p"${MYSQL_ROOT_PASSWORD}" <<-EOSQL
+    CREATE DATABASE IF NOT EXISTS ${DB_NAME};
     -- Asegurar que el usuario tiene todos los permisos necesarios
     GRANT ALL PRIVILEGES ON \`${DB_NAME}\`.* TO '${DB_USER}'@'%';
     
